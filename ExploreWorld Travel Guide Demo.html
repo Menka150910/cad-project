@@ -1,0 +1,1208 @@
+<script>
+  window.watsonAssistantChatOptions = {
+    integrationID: "b847640f-2f23-4ef4-8c73-c398204a8070", // The ID of this integration.
+    region: "https://integrations.au-syd.assistant.watson.appdomain.cloud", // The region your integration is hosted in.
+    serviceInstanceID: "081f36c6-01a9-477b-b7da-1e6f43921951", // The ID of your service instance.
+    onLoad: async (instance) => { await instance.render(); }
+  };
+  setTimeout(function(){
+    const t=document.createElement('script');
+    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+    document.head.appendChild(t);
+  });
+</script>
+<!DOCTYPE html>
+<!-- saved from url=(0195)file:///C:/Users/HP/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/238E1FC96A01B139FAC5B543C5E8E6D4D8CBFD4E/transfers/2026-18/travel_guide_demo_single_file.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExploreWorld Travel Guide Demo</title>
+  <style>
+    :root {
+      --bg: #f4f8ff;
+      --bg-soft: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #2563eb;
+      --primary-2: #1d4ed8;
+      --accent: #f59e0b;
+      --card-shadow: 0 16px 40px rgba(15, 23, 42, 0.10);
+      --border: rgba(148, 163, 184, 0.2);
+    }
+
+    body.dark {
+      --bg: #081120;
+      --bg-soft: #0f172a;
+      --text: #e5eefc;
+      --muted: #94a3b8;
+      --primary: #60a5fa;
+      --primary-2: #3b82f6;
+      --accent: #fbbf24;
+      --card-shadow: 0 18px 42px rgba(2, 8, 23, 0.45);
+      --border: rgba(148, 163, 184, 0.18);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(180deg, var(--bg), #dfeeff 120%);
+      color: var(--text);
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    body.dark {
+      background: linear-gradient(180deg, #07101d, #0b1326 120%);
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.72);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 5%;
+    }
+
+    body.dark .navbar {
+      background: rgba(8,17,32,0.78);
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .toggle-btn {
+      border: none;
+      background: var(--bg-soft);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: var(--card-shadow);
+    }
+
+    header {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+      padding: 40px 5% 60px;
+    }
+
+    .hero-copy h1 {
+      font-size: 3.6rem;
+      line-height: 1.08;
+      margin-bottom: 18px;
+    }
+
+    .hero-copy p {
+      color: var(--muted);
+      max-width: 700px;
+      font-size: 1.08rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .hero-highlight {
+      display: inline-block;
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+
+    .hero-btn,
+    .hero-btn-secondary,
+    .search-bar button,
+    .primary-btn,
+    .secondary-btn,
+    .form button,
+    .chat-send {
+      border: none;
+      cursor: pointer;
+      transition: 0.25s ease;
+      font-weight: 700;
+    }
+
+    .hero-btn,
+    .search-bar button,
+    .primary-btn,
+    .form button,
+    .chat-send {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      padding: 14px 18px;
+      border-radius: 14px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .hero-btn:hover,
+    .search-bar button:hover,
+    .primary-btn:hover,
+    .form button:hover,
+    .chat-send:hover {
+      transform: translateY(-2px);
+      opacity: 0.96;
+    }
+
+    .hero-btn-secondary,
+    .secondary-btn {
+      background: var(--bg-soft);
+      color: var(--text);
+      padding: 14px 18px;
+      border-radius: 14px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 520px;
+    }
+
+    .hero-card {
+      position: absolute;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .hero-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-card.large {
+      width: 74%;
+      height: 78%;
+      right: 0;
+      top: 3%;
+    }
+
+    .hero-card.small-a {
+      width: 36%;
+      height: 34%;
+      left: 0;
+      top: 16%;
+      animation-delay: 0.8s;
+    }
+
+    .hero-card.small-b {
+      width: 40%;
+      height: 30%;
+      left: 8%;
+      bottom: 8%;
+      animation-delay: 1.5s;
+    }
+
+    .search-panel {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      border-radius: 24px;
+      padding: 18px;
+      margin-top: 18px;
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-bar input,
+    .search-bar select,
+    .form input,
+    .form select,
+    .form textarea,
+    .chat-input {
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      outline: none;
+      background: var(--bg-soft);
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .search-bar input,
+    .search-bar select {
+      flex: 1 1 200px;
+    }
+
+    .section {
+      width: 92%;
+      max-width: 1240px;
+      margin: 64px auto;
+    }
+
+    .section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+    }
+
+    .section p.section-sub {
+      color: var(--muted);
+      max-width: 720px;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-top: -72px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .stat-card,
+    .card,
+    .planner-box,
+    .feature-card,
+    .testimonial,
+    .form-wrap,
+    .chatbot {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      box-shadow: var(--card-shadow);
+      border-radius: 22px;
+    }
+
+    .stat-card {
+      padding: 24px;
+      text-align: center;
+    }
+
+    .stat-card h3 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .features,
+    .planner,
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
+
+    .feature-card,
+    .planner-box,
+    .testimonial {
+      padding: 24px;
+    }
+
+    .feature-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: rgba(37, 99, 235, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+
+    .feature-card p,
+    .planner-box ul,
+    .testimonial p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .planner-box ul {
+      padding-left: 18px;
+      margin-top: 14px;
+    }
+
+    .destinations {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 18px;
+    }
+
+    .top-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 10px;
+    }
+
+    .top-line h3 {
+      font-size: 1.3rem;
+    }
+
+    .rating {
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 12px 0;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .tag {
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .btn-row {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .form-wrap {
+      padding: 26px;
+    }
+
+    .form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .form .full {
+      grid-column: 1 / -1;
+    }
+
+    .form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-result {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--text);
+      display: none;
+    }
+
+    .chatbot {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 340px;
+      overflow: hidden;
+      z-index: 2000;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .chat-body {
+      padding: 14px;
+      display: block;
+      background: var(--bg-soft);
+    }
+
+    .chat-messages {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 260px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+    }
+
+    .msg {
+      padding: 10px 12px;
+      border-radius: 14px;
+      max-width: 86%;
+      line-height: 1.5;
+      font-size: 0.92rem;
+    }
+
+    .bot {
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--text);
+      align-self: flex-start;
+    }
+
+    .user {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      align-self: flex-end;
+    }
+
+    .chat-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-input {
+      flex: 1;
+    }
+
+    .chat-toggle-btn {
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #09111f;
+      color: white;
+      text-align: center;
+      padding: 28px 20px;
+      margin-top: 70px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: all 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 980px) {
+      header,
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy h1 {
+        font-size: 2.9rem;
+      }
+
+      .hero-visual {
+        min-height: 430px;
+      }
+
+      .stats {
+        margin-top: 12px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .navbar {
+        padding: 12px 4%;
+      }
+
+      .nav-links {
+        gap: 14px;
+      }
+
+      header {
+        padding: 30px 4% 40px;
+      }
+
+      .hero-copy h1 {
+        font-size: 2.2rem;
+      }
+
+      .form {
+        grid-template-columns: 1fr;
+      }
+
+      .chatbot {
+        width: calc(100% - 24px);
+        right: 12px;
+        bottom: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">ExploreWorld</div>
+    <div class="nav-links">
+      <a href="file:///C:/Users/HP/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/238E1FC96A01B139FAC5B543C5E8E6D4D8CBFD4E/transfers/2026-18/travel_guide_demo_single_file.html#destinations">Destinations</a>
+      <a href="file:///C:/Users/HP/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/238E1FC96A01B139FAC5B543C5E8E6D4D8CBFD4E/transfers/2026-18/travel_guide_demo_single_file.html#features">Features</a>
+      <a href="file:///C:/Users/HP/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/238E1FC96A01B139FAC5B543C5E8E6D4D8CBFD4E/transfers/2026-18/travel_guide_demo_single_file.html#planner">Planner</a>
+      <a href="file:///C:/Users/HP/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/238E1FC96A01B139FAC5B543C5E8E6D4D8CBFD4E/transfers/2026-18/travel_guide_demo_single_file.html#booking">Booking</a>
+      <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Mode</button>
+    </div>
+  </nav>
+
+  <header>
+    <div class="hero-copy reveal visible">
+      <div class="hero-highlight">Smart Travel Guide Demo Website</div>
+      <h1>Plan unforgettable journeys with a premium travel experience.</h1>
+      <p>
+        Explore destinations, compare travel styles, request trip plans, and interact with a demo travel chatbot — all inside one single HTML, CSS, and JavaScript file.
+      </p>
+      <div class="hero-actions">
+        <a href="file:///C:/Users/HP/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/238E1FC96A01B139FAC5B543C5E8E6D4D8CBFD4E/transfers/2026-18/travel_guide_demo_single_file.html#booking"><button class="hero-btn">Book a Trip</button></a>
+        <a href="file:///C:/Users/HP/AppData/Local/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalState/sessions/238E1FC96A01B139FAC5B543C5E8E6D4D8CBFD4E/transfers/2026-18/travel_guide_demo_single_file.html#destinations"><button class="hero-btn-secondary">Explore Destinations</button></a>
+      </div>
+
+      <div class="search-panel">
+        <div class="search-bar">
+          <input type="text" id="searchInput" placeholder="Search destination, country, or activity...">
+          <select id="regionFilter">
+            <option value="All">All Types</option>
+            <option value="Heritage">Heritage</option>
+            <option value="Beach">Beach</option>
+            <option value="Mountain">Mountain</option>
+            <option value="City">City</option>
+          </select>
+          <button onclick="filterDestinations()">Search</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal visible">
+      <div class="hero-card large">
+        <img src="./ExploreWorld Travel Guide Demo_files/photo-1507525428034-b723cf961d3e" alt="Beach destination">
+      </div>
+      <div class="hero-card small-a">
+        <img src="./ExploreWorld Travel Guide Demo_files/photo-1526772662000-3f88f10405ff" alt="Travel city">
+      </div>
+      <div class="hero-card small-b">
+        <img src="./ExploreWorld Travel Guide Demo_files/photo-1501785888041-af3ef285b470" alt="Mountain travel">
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="stats reveal visible">
+      <div class="stat-card">
+        <h3>50+</h3>
+        <p>Trending destinations</p>
+      </div>
+      <div class="stat-card">
+        <h3>4.8/5</h3>
+        <p>Traveler satisfaction</p>
+      </div>
+      <div class="stat-card">
+        <h3>1 File</h3>
+        <p>Complete executable demo</p>
+      </div>
+      <div class="stat-card">
+        <h3>24/7</h3>
+        <p>Instant trip inspiration</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal visible" id="features">
+    <h2>Why this demo stands out</h2>
+    <p class="section-sub">Designed like a modern travel agency landing page with interactive discovery, clean layout, motion effects, a booking form, and a chatbot for a better demo experience.</p>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">✈️</div>
+        <h3>Premium Landing Page</h3>
+        <p>Modern hero section, sticky navigation, travel-focused storytelling, and polished cards to make the site presentation-ready.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌙</div>
+        <h3>Dark Mode</h3>
+        <p>One-click dark mode makes the demo look more premium and visually impressive during presentations.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✨</div>
+        <h3>Smooth Animations</h3>
+        <p>Scroll-based reveal animation and floating hero visuals improve the overall user experience without external libraries.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>Travel Chatbot</h3>
+        <p>A built-in JavaScript demo chatbot responds with destination ideas, budget guidance, and travel assistance prompts.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal visible" id="destinations">
+    <h2>Top Destinations</h2>
+    <p class="section-sub">Search and filter destinations based on travel type and interests.</p>
+    <div class="destinations" id="destinationList"><div class="card reveal visible">
+          <img src="./ExploreWorld Travel Guide Demo_files/photo-1599661046827-dacff0c0f09a" alt="Jaipur">
+          <div class="card-content">
+            <div class="top-line">
+              <h3>Jaipur</h3>
+              <span class="rating">4.8 ★</span>
+            </div>
+            <div style="color: var(--muted); font-size: 0.95rem;">India • Heritage</div>
+            <div class="meta">
+              <span>📅 Oct - Mar</span>
+              <span>💰 ₹18k - ₹30k</span>
+              <span>🕒 2-3 days</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Forts</span><span class="tag">Culture</span><span class="tag">Food</span>
+            </div>
+            <p>A royal destination famous for palaces, forts, colorful markets, and authentic local experiences.</p>
+            <div class="btn-row">
+              <button class="primary-btn" onclick="viewDetails(&#39;Jaipur&#39;)">View Details</button>
+              <button class="secondary-btn" onclick="saveTrip(&#39;Jaipur&#39;)">Save</button>
+            </div>
+          </div>
+        </div><div class="card reveal visible">
+          <img src="./ExploreWorld Travel Guide Demo_files/photo-1512343879784-a960bf40e7f2" alt="Goa">
+          <div class="card-content">
+            <div class="top-line">
+              <h3>Goa</h3>
+              <span class="rating">4.7 ★</span>
+            </div>
+            <div style="color: var(--muted); font-size: 0.95rem;">India • Beach</div>
+            <div class="meta">
+              <span>📅 Nov - Feb</span>
+              <span>💰 ₹20k - ₹40k</span>
+              <span>🕒 3-4 days</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Beach</span><span class="tag">Nightlife</span><span class="tag">Water Sports</span>
+            </div>
+            <p>Ideal for beaches, cafes, nightlife, seafood, and a carefree tropical holiday.</p>
+            <div class="btn-row">
+              <button class="primary-btn" onclick="viewDetails(&#39;Goa&#39;)">View Details</button>
+              <button class="secondary-btn" onclick="saveTrip(&#39;Goa&#39;)">Save</button>
+            </div>
+          </div>
+        </div><div class="card reveal visible">
+          <img src="./ExploreWorld Travel Guide Demo_files/photo-1626621341517-bbf3d9990a23" alt="Manali">
+          <div class="card-content">
+            <div class="top-line">
+              <h3>Manali</h3>
+              <span class="rating">4.9 ★</span>
+            </div>
+            <div style="color: var(--muted); font-size: 0.95rem;">India • Mountain</div>
+            <div class="meta">
+              <span>📅 Sep - Feb</span>
+              <span>💰 ₹15k - ₹28k</span>
+              <span>🕒 3-5 days</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Snow</span><span class="tag">Adventure</span><span class="tag">Nature</span>
+            </div>
+            <p>A scenic mountain getaway with snowy landscapes, nature views, and adventure options.</p>
+            <div class="btn-row">
+              <button class="primary-btn" onclick="viewDetails(&#39;Manali&#39;)">View Details</button>
+              <button class="secondary-btn" onclick="saveTrip(&#39;Manali&#39;)">Save</button>
+            </div>
+          </div>
+        </div><div class="card reveal visible">
+          <img src="./ExploreWorld Travel Guide Demo_files/photo-1512453979798-5ea266f8880c" alt="Dubai">
+          <div class="card-content">
+            <div class="top-line">
+              <h3>Dubai</h3>
+              <span class="rating">4.6 ★</span>
+            </div>
+            <div style="color: var(--muted); font-size: 0.95rem;">UAE • City</div>
+            <div class="meta">
+              <span>📅 Nov - Mar</span>
+              <span>💰 ₹55k - ₹95k</span>
+              <span>🕒 4-5 days</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Luxury</span><span class="tag">Shopping</span><span class="tag">Skyline</span>
+            </div>
+            <p>A luxury city break with iconic skyscrapers, desert safaris, shopping, and entertainment.</p>
+            <div class="btn-row">
+              <button class="primary-btn" onclick="viewDetails(&#39;Dubai&#39;)">View Details</button>
+              <button class="secondary-btn" onclick="saveTrip(&#39;Dubai&#39;)">Save</button>
+            </div>
+          </div>
+        </div><div class="card reveal visible">
+          <img src="./ExploreWorld Travel Guide Demo_files/photo-1602216056096-3b40cc0c9944" alt="Kerala">
+          <div class="card-content">
+            <div class="top-line">
+              <h3>Kerala</h3>
+              <span class="rating">4.8 ★</span>
+            </div>
+            <div style="color: var(--muted); font-size: 0.95rem;">India • Beach</div>
+            <div class="meta">
+              <span>📅 Sep - Mar</span>
+              <span>💰 ₹22k - ₹38k</span>
+              <span>🕒 4-6 days</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Backwaters</span><span class="tag">Relaxing</span><span class="tag">Nature</span>
+            </div>
+            <p>Known for backwaters, greenery, beaches, peaceful stays, and relaxing family travel.</p>
+            <div class="btn-row">
+              <button class="primary-btn" onclick="viewDetails(&#39;Kerala&#39;)">View Details</button>
+              <button class="secondary-btn" onclick="saveTrip(&#39;Kerala&#39;)">Save</button>
+            </div>
+          </div>
+        </div><div class="card reveal visible">
+          <img src="./ExploreWorld Travel Guide Demo_files/photo-1622308644420-b20142dc993c" alt="Shimla">
+          <div class="card-content">
+            <div class="top-line">
+              <h3>Shimla</h3>
+              <span class="rating">4.5 ★</span>
+            </div>
+            <div style="color: var(--muted); font-size: 0.95rem;">India • Mountain</div>
+            <div class="meta">
+              <span>📅 Oct - Feb</span>
+              <span>💰 ₹14k - ₹25k</span>
+              <span>🕒 2-4 days</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Hills</span><span class="tag">Family</span><span class="tag">Scenic</span>
+            </div>
+            <p>A charming hill station with cool weather, classic views, and a calm family-friendly atmosphere.</p>
+            <div class="btn-row">
+              <button class="primary-btn" onclick="viewDetails(&#39;Shimla&#39;)">View Details</button>
+              <button class="secondary-btn" onclick="saveTrip(&#39;Shimla&#39;)">Save</button>
+            </div>
+          </div>
+        </div></div>
+  </section>
+
+  <section class="section reveal visible" id="planner">
+    <h2>Quick Travel Planner</h2>
+    <p class="section-sub">Choose a travel style and use it as inspiration for your next getaway.</p>
+    <div class="planner">
+      <div class="planner-box">
+        <h3>Weekend Escape</h3>
+        <ul>
+          <li>Short-distance trip ideas</li>
+          <li>Quick hotel and itinerary planning</li>
+          <li>Best for 1 to 2-day relaxation</li>
+          <li>Affordable and flexible plans</li>
+        </ul>
+      </div>
+      <div class="planner-box">
+        <h3>Adventure Travel</h3>
+        <ul>
+          <li>Trekking, nature, and high-energy experiences</li>
+          <li>Great for groups and explorers</li>
+          <li>Activity-focused travel planning</li>
+          <li>Mountain and action-friendly routes</li>
+        </ul>
+      </div>
+      <div class="planner-box">
+        <h3>Family Vacation</h3>
+        <ul>
+          <li>Comfortable and safe destinations</li>
+          <li>Balanced itinerary and budget</li>
+          <li>Cultural and sightseeing activities</li>
+          <li>Recommended for 3 to 5 days</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal visible">
+    <h2>What travelers say</h2>
+    <p class="section-sub">Demo testimonials to make the website feel closer to a real travel agency experience.</p>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>“The destination discovery flow feels smooth and premium. It looks much more advanced than a basic HTML project.”</p>
+        <strong>- Aarav, Solo Traveler</strong>
+      </div>
+      <div class="testimonial">
+        <p>“Dark mode, booking form, and chatbot make this demo ideal for college presentations and portfolio showcases.”</p>
+        <strong>- Riya, Design Student</strong>
+      </div>
+      <div class="testimonial">
+        <p>“The one-file setup is very convenient. I can run it directly without installing anything.”</p>
+        <strong>- Kabir, Developer Learner</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal visible" id="booking">
+    <h2>Book Your Dream Trip</h2>
+    <p class="section-sub">A demo booking form to make your travel website feel more realistic and complete.</p>
+    <div class="booking-grid">
+      <div class="form-wrap">
+        <h3>Trip Enquiry Form</h3>
+        <form class="form" onsubmit="submitBooking(event)">
+          <input type="text" id="fullName" placeholder="Full Name" required="">
+          <input type="email" id="email" placeholder="Email Address" required="">
+          <select id="tripType" required="">
+            <option value="">Select Trip Type</option>
+            <option>Beach Vacation</option>
+            <option>Mountain Adventure</option>
+            <option>Heritage Tour</option>
+            <option>Luxury City Tour</option>
+            <option>Family Holiday</option>
+          </select>
+          <input type="number" id="travelers" min="1" placeholder="Number of Travelers" required="">
+          <input type="date" id="travelDate" class="full" required="">
+          <textarea id="message" class="full" placeholder="Tell us about your dream trip, budget, or destination preference..."></textarea>
+          <button type="submit" class="full">Submit Enquiry</button>
+        </form>
+        <div class="form-result" id="formResult"></div>
+      </div>
+
+      <div class="form-wrap">
+        <h3>Why travelers book with us</h3>
+        <div class="planner-box" style="padding:0; box-shadow:none; border:none; background:transparent;">
+          <ul>
+            <li>Curated destinations for different travel styles</li>
+            <li>Clean travel planning experience in a single-page layout</li>
+            <li>Interactive destination filtering and chatbot support</li>
+            <li>Presentation-friendly premium UI for demos and submissions</li>
+            <li>Single-file HTML project with embedded CSS and JavaScript</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>ExploreWorld Travel Guide Demo • Built with HTML, CSS, and JavaScript in one executable file</p>
+  </footer>
+
+  <div class="chatbot" id="chatbot">
+    <div class="chat-header" onclick="toggleChat()">
+      <span>TravelBot Assistant</span>
+      <button class="chat-toggle-btn" id="chatToggleSymbol">+</button>
+    </div>
+    <div class="chat-body" id="chatBody" style="display: none;">
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg bot">Hi! I’m your travel assistant. Ask me for beach trips, budget travel, mountains, or family vacation ideas.</div>
+      <div class="msg user">hii</div><div class="msg bot">Hello! Tell me your travel style such as beach, mountains, family, budget, or luxury.</div></div>
+      <div class="chat-row">
+        <input class="chat-input" id="chatInput" type="text" placeholder="Ask about destinations...">
+        <button class="chat-send" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const destinations = [
+      {
+        name: "Jaipur",
+        country: "India",
+        region: "Heritage",
+        rating: "4.8 ★",
+        bestTime: "Oct - Mar",
+        budget: "₹18k - ₹30k",
+        duration: "2-3 days",
+        image: "https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?auto=format&fit=crop&w=1200&q=80",
+        tags: ["Forts", "Culture", "Food"],
+        description: "A royal destination famous for palaces, forts, colorful markets, and authentic local experiences."
+      },
+      {
+        name: "Goa",
+        country: "India",
+        region: "Beach",
+        rating: "4.7 ★",
+        bestTime: "Nov - Feb",
+        budget: "₹20k - ₹40k",
+        duration: "3-4 days",
+        image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80",
+        tags: ["Beach", "Nightlife", "Water Sports"],
+        description: "Ideal for beaches, cafes, nightlife, seafood, and a carefree tropical holiday."
+      },
+      {
+        name: "Manali",
+        country: "India",
+        region: "Mountain",
+        rating: "4.9 ★",
+        bestTime: "Sep - Feb",
+        budget: "₹15k - ₹28k",
+        duration: "3-5 days",
+        image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=80",
+        tags: ["Snow", "Adventure", "Nature"],
+        description: "A scenic mountain getaway with snowy landscapes, nature views, and adventure options."
+      },
+      {
+        name: "Dubai",
+        country: "UAE",
+        region: "City",
+        rating: "4.6 ★",
+        bestTime: "Nov - Mar",
+        budget: "₹55k - ₹95k",
+        duration: "4-5 days",
+        image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80",
+        tags: ["Luxury", "Shopping", "Skyline"],
+        description: "A luxury city break with iconic skyscrapers, desert safaris, shopping, and entertainment."
+      },
+      {
+        name: "Kerala",
+        country: "India",
+        region: "Beach",
+        rating: "4.8 ★",
+        bestTime: "Sep - Mar",
+        budget: "₹22k - ₹38k",
+        duration: "4-6 days",
+        image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1200&q=80",
+        tags: ["Backwaters", "Relaxing", "Nature"],
+        description: "Known for backwaters, greenery, beaches, peaceful stays, and relaxing family travel."
+      },
+      {
+        name: "Shimla",
+        country: "India",
+        region: "Mountain",
+        rating: "4.5 ★",
+        bestTime: "Oct - Feb",
+        budget: "₹14k - ₹25k",
+        duration: "2-4 days",
+        image: "https://images.unsplash.com/photo-1622308644420-b20142dc993c?auto=format&fit=crop&w=1200&q=80",
+        tags: ["Hills", "Family", "Scenic"],
+        description: "A charming hill station with cool weather, classic views, and a calm family-friendly atmosphere."
+      }
+    ];
+
+    function renderDestinations(list) {
+      const container = document.getElementById("destinationList");
+      container.innerHTML = "";
+
+      if (!list.length) {
+        container.innerHTML = `<div class="form-wrap">No destinations found. Try a different search or travel type.</div>`;
+        return;
+      }
+
+      list.forEach((item) => {
+        const card = document.createElement("div");
+        card.className = "card reveal visible";
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" />
+          <div class="card-content">
+            <div class="top-line">
+              <h3>${item.name}</h3>
+              <span class="rating">${item.rating}</span>
+            </div>
+            <div style="color: var(--muted); font-size: 0.95rem;">${item.country} • ${item.region}</div>
+            <div class="meta">
+              <span>📅 ${item.bestTime}</span>
+              <span>💰 ${item.budget}</span>
+              <span>🕒 ${item.duration}</span>
+            </div>
+            <div class="tags">
+              ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+            </div>
+            <p>${item.description}</p>
+            <div class="btn-row">
+              <button class="primary-btn" onclick="viewDetails('${item.name}')">View Details</button>
+              <button class="secondary-btn" onclick="saveTrip('${item.name}')">Save</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterDestinations() {
+      const searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+      const region = document.getElementById("regionFilter").value;
+
+      const filtered = destinations.filter((item) => {
+        const searchBase = `${item.name} ${item.country} ${item.tags.join(" ")} ${item.description}`.toLowerCase();
+        const matchesSearch = searchBase.includes(searchText);
+        const matchesRegion = region === "All" || item.region === region;
+        return matchesSearch && matchesRegion;
+      });
+
+      renderDestinations(filtered);
+    }
+
+    function viewDetails(name) {
+      alert(`Opening travel details for ${name}. In a real project, this can open a modal or a new page.`);
+    }
+
+    function saveTrip(name) {
+      alert(`${name} has been saved to your favorites.`);
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("travel-dark-mode", document.body.classList.contains("dark") ? "on" : "off");
+    }
+
+    function applySavedTheme() {
+      const saved = localStorage.getItem("travel-dark-mode");
+      if (saved === "on") {
+        document.body.classList.add("dark");
+      }
+    }
+
+    function submitBooking(event) {
+      event.preventDefault();
+      const name = document.getElementById("fullName").value;
+      const email = document.getElementById("email").value;
+      const tripType = document.getElementById("tripType").value;
+      const travelers = document.getElementById("travelers").value;
+      const travelDate = document.getElementById("travelDate").value;
+      const result = document.getElementById("formResult");
+
+      result.style.display = "block";
+      result.innerHTML = `Thank you, <strong>${name}</strong>! Your enquiry for a <strong>${tripType}</strong> trip for <strong>${travelers}</strong> traveler(s) on <strong>${travelDate}</strong> has been recorded. We will contact you at <strong>${email}</strong>.`;
+      event.target.reset();
+    }
+
+    function revealOnScroll() {
+      const elements = document.querySelectorAll('.reveal');
+      elements.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 70) {
+          el.classList.add('visible');
+        }
+      });
+    }
+
+    function toggleChat() {
+      const body = document.getElementById('chatBody');
+      const symbol = document.getElementById('chatToggleSymbol');
+      const isHidden = body.style.display === 'none';
+      body.style.display = isHidden ? 'block' : 'none';
+      symbol.textContent = isHidden ? '−' : '+';
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const messages = document.getElementById('chatMessages');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const userMsg = document.createElement('div');
+      userMsg.className = 'msg user';
+      userMsg.textContent = text;
+      messages.appendChild(userMsg);
+
+      const reply = getBotReply(text);
+      const botMsg = document.createElement('div');
+      botMsg.className = 'msg bot';
+      botMsg.textContent = reply;
+
+      setTimeout(() => {
+        messages.appendChild(botMsg);
+        messages.scrollTop = messages.scrollHeight;
+      }, 450);
+
+      input.value = '';
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function getBotReply(text) {
+      const msg = text.toLowerCase();
+      if (msg.includes('beach')) return 'For beach travel, Goa and Kerala are great choices. Goa is better for nightlife, while Kerala is more calm and scenic.';
+      if (msg.includes('mountain') || msg.includes('adventure')) return 'For mountains and adventure, Manali and Shimla are strong options. Manali is better for snow and adventure activities.';
+      if (msg.includes('budget')) return 'For budget-friendly travel, Jaipur, Shimla, and Manali offer a strong balance of cost, scenery, and experiences.';
+      if (msg.includes('family')) return 'For family vacations, Kerala, Jaipur, and Shimla are comfortable and widely preferred.';
+      if (msg.includes('luxury') || msg.includes('city')) return 'For a luxury city trip, Dubai is the top option in this demo. It suits shopping, skyline views, and premium stays.';
+      if (msg.includes('hello') || msg.includes('hi')) return 'Hello! Tell me your travel style such as beach, mountains, family, budget, or luxury.';
+      return 'I can help with beach, mountain, budget, family, and city travel ideas. Try asking: best budget destination or suggest a beach trip.';
+    }
+
+    document.getElementById('chatInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    applySavedTheme();
+    renderDestinations(destinations);
+    revealOnScroll();
+    window.addEventListener('scroll', revealOnScroll);
+  </script>
+
+
+</body></html>
